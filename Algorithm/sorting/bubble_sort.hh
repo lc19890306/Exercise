@@ -6,16 +6,17 @@
 template<typename RandomIt>
 void
 bubble_sort(RandomIt first, RandomIt last) {
-  auto end(last - 1);
+  if (first == last)
+    return;
   bool sorted(false);
   while (!sorted) {
+    --last;
     sorted = true;
-    for (auto it(first); it != end; ++it)
+    for (auto it(first); it != last; ++it)
       if (*(it + 1) < *it) {
-	swap(*(it + 1), *it);
-	sorted = false;
+    	swap(*(it + 1), *it);
+    	sorted = false;
       }
-    --end;
   }
 }
 

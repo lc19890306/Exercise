@@ -37,25 +37,25 @@
 
 template<typename RandomIt>
 void minmax_sort(RandomIt first, RandomIt last) {
-  auto begin(first), end(last - 1);
-  while (begin < end) {
+  --last;
+  while (first < last) {
     bool sorted(true);
-    auto minmax_pair(Algo::minmax_element(begin, end + 1, sorted));
+    auto minmax_pair(Algo::minmax_element(first, last + 1, sorted));
     if (sorted)
       return;
     auto min_it(minmax_pair.first), max_it(minmax_pair.second);
-    if (begin == max_it && end == min_it)
+    if (first == max_it && last == min_it)
       swap(*min_it, *max_it);
-    else if (begin == max_it) {
-      swap(*end, *max_it);
-      swap(*begin, *min_it);
+    else if (first == max_it) {
+      swap(*last, *max_it);
+      swap(*first, *min_it);
     }
     else {
-      swap(*begin, *min_it);
-      swap(*end, *max_it);
+      swap(*first, *min_it);
+      swap(*last, *max_it);
     }
-    ++begin;
-    --end;
+    ++first;
+    --last;
   }
 }
 

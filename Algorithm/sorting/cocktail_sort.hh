@@ -6,22 +6,25 @@
 template<typename RandomIt>
 void
 cocktail_sort(RandomIt first, RandomIt last) {
-  auto begin(first), end(last - 1);
+  if (first == last)
+    return;
+  // auto begin(first), end(last - 1);
+  --last;
   bool sorted(false);
   while (!sorted) {
     sorted = true;
-    for (auto it(begin); it != end; ++it)
+    for (auto it(first); it != last; ++it)
       if (*(it + 1) < *it) {
 	swap(*(it + 1), *it);
 	sorted = false;
       }
-    --end;
-    for (auto it(end); it != begin; --it)
+    --last;
+    for (auto it(last); it != first; --it)
       if (*it < *(it - 1)) {
 	swap(*it, *(it - 1));
 	sorted = false;
       }
-    ++begin;
+    ++first;
   }
 }
 

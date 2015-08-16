@@ -14,6 +14,7 @@
 #include <vector>
 #include <iostream>
 #include <algorithm>
+#include <iterator>
 
 typedef std::vector<int>::iterator VIIterator;
 typedef void (*SortFunc)(VIIterator, VIIterator);

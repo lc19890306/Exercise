@@ -74,16 +74,16 @@ lower_bound(ForwardIt first,
 // template<typename ForwardIt, typename T>
 // ForwardIt
 // lower_bound(ForwardIt first,
-// 	    ForwardIt last,
-// 	    const T &value) {
-//   while (first < last) {
+// 	       ForwardIt last,
+// 	       const T &value) {
+//   while (first != last) {
 //     auto it(first);
 //     auto step(std::distance(first, last) >> 2);
 //     std::advance(it, step);
 //     if (value < *it)
 //       last = it;
 //     else
-//       first = it + 1;
+//       first = ++it;
 //   }
 // // Since the lower bound is usually stands on the right, we return last
 // // rather than first
@@ -93,8 +93,8 @@ lower_bound(ForwardIt first,
 // template<typename ForwardIt, typename T>
 // ForwardIt
 // lower_bound(ForwardIt first,
-// 	      ForwardIt last,
-// 	      const T &value) {
+// 	       ForwardIt last,
+// 	       const T &value) {
 //   if (first == last)
 //     return last;
 //   auto it(first);
@@ -103,7 +103,7 @@ lower_bound(ForwardIt first,
 //   if (value < *it)
 //     return Algo::lower_bound(first, it, value);
 //   else
-//     return Algo::lower_bound(it + 1, last, value);
+//     return Algo::lower_bound(++it, last, value);
 // }
 
 };

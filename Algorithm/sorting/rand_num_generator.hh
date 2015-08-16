@@ -5,6 +5,7 @@
 #include <ctime>
 #include <cstdlib>
 #include <unordered_set>
+#include <iterator>
 
 class rand_num_generator {
 public:

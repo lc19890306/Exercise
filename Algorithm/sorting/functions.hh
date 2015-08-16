@@ -17,50 +17,78 @@ template<typename ForwardIt>
 ForwardIt
 min_element(ForwardIt first, 
 	    ForwardIt last) {
-  auto min_it(first);
-  while (++first < last)
-    if (*first < *min_it)
-      min_it = first;
-  return min_it;
+  if (first == last)
+    return last;
+  auto smallest(first);
+  while (++first != last)
+    if (*first < *smallest)
+      smallest = first;
+  return smallest;
 }
 
-template<typename ForwardIt>
-ForwardIt
-min_element(ForwardIt first, 
-	    ForwardIt last,
+template<typename BidirIt>
+BidirIt
+min_element(BidirIt first, 
+	    BidirIt last,
 	    bool &sorted) {
-  auto min_it(last - 1);
-  for (auto it(min_it - 1); it >= first; --it)
-    if (*it < *min_it)
-      min_it = it;
-    else if (*min_it < *it)
+  if (first == last)
+    return last;
+  auto smallest(--last);
+  // first has to be set to the sentinel rbegin in order to avoid
+  // out of bound error introduced by !=
+  --first;
+  while (first != --last)
+    if (*last < *smallest)
+      smallest = last;
+    else if (*smallest < *last)
       sorted = false;
-  return min_it;
+  return smallest;
 }
 
 template<typename ForwardIt>
 ForwardIt
 max_element(ForwardIt first, 
 	    ForwardIt last) {
-  auto max_it(first);
-  for (auto it(first + 1); it != last; ++it)
-    if (*max_it < *it)
-      max_it = it;
-  return max_it;
+  if (first == last)
+    return last;
+  auto largest(first);
+  while (++first != last)
+    if (*largest < *first)
+      largest = first;
+  return largest;
 }
 
+template<typename ForwardIt>
+ForwardIt
+max_element(ForwardIt first, 
+	    ForwardIt last,
+	    bool &sorted) {
+  if (first == last)
+    return last;
+  auto largest(first);
+  while (++first != last)
+    if (*largest < *first)
+      largest = first;
+    else if (*first < *largest)
+      sorted = false;
+  return largest;
+}
+
+// returns the first smallest and largest element
 template<typename ForwardIt>
 std::pair<ForwardIt, ForwardIt>
 minmax_element(ForwardIt first, 
 	       ForwardIt last) {
-  auto min_it(first), max_it(first);
-  for (auto it(first + 1); it != last; ++it) {
-    if (*it < *min_it)
-      min_it = it;
-    if (*max_it < *it)
-      max_it = it;
+  if (first == last)
+    return std::make_pair(first, first);
+  auto smallest(first), largest(first);
+  while (++first != last) {
+    if (*first < *smallest)
+      smallest = first;
+    if (*largest < *first)
+      largest = first;
   }
-  return std::make_pair(min_it, max_it);
+  return std::make_pair(smallest, largest);
 }
 
 template<typename ForwardIt>
@@ -68,16 +96,18 @@ std::pair<ForwardIt, ForwardIt>
 minmax_element(ForwardIt first, 
 	       ForwardIt last,
 	       bool &sorted) {
-  auto min_it(first), max_it(first);
-  for (auto it(first + 1); it != last; ++it) {
-    if (*it < *min_it)
-      min_it = it;
-    if (*max_it < *it)
-      max_it = it;
-    else if (*it < *max_it)
+  if (first == last)
+    return std::make_pair(first, first);
+  auto smallest(first), largest(first);
+  while (++first != last) {
+    if (*first < *smallest)
+      smallest = first;
+    if (*largest < *first)
+      largest = first;
+    else if (*first < *largest)	// only apply to max_element
       sorted = false;
   }
-  return std::make_pair(min_it, max_it);
+  return std::make_pair(smallest, largest);
 }
 
 };
