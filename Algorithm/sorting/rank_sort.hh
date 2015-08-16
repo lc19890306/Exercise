@@ -3,9 +3,9 @@
 
 #include <vector>
 
-template<typename InputIt, typename OutputIt>
+template<typename InputRandomIt, typename OutputRandomIt>
 void
-set_rank(InputIt first, InputIt last, OutputIt d_first) {
+set_rank(InputRandomIt first, InputRandomIt last, OutputRandomIt d_first) {
   auto count(std::distance(first, last));
   for (auto i(0); i != count - 1; ++i)
     for (auto j(i + 1); j != count; ++j)
@@ -15,8 +15,8 @@ set_rank(InputIt first, InputIt last, OutputIt d_first) {
 	++*(d_first + i);
 }
 
-template<typename RandomIt, typename InputIt>
-void rearrange(RandomIt first, RandomIt last, InputIt d_first) {
+template<typename RandomIt, typename InputRandomIt>
+void rearrange(RandomIt first, RandomIt last, RandomInputIt d_first) {
   auto count(std::distance(first, last));
   std::size_t i(0);
   while (i != count - 1) {

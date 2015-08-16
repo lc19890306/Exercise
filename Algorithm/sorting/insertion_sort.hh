@@ -33,7 +33,10 @@ lower_bound(ForwardIt first,
     if (value < *it)
       count = step;
     else {
-      first = it + 1;
+      // first = it + 1 may be applicable but inappropriate in here
+      // because it copies from first, a forward_iterator which does not support random access (it + 1)
+      // so ++it is used since forward_iterator supports ++ operation
+      first = ++it;
       count -= (step + 1);
     }
   }
@@ -50,11 +53,18 @@ lower_bound(ForwardIt first,
   while (count > 0) {
     auto it(first);
     auto step(count >> 1);
+    // advance may be of low-efficiency because advance has linear time
+    // complexity in most cases except that the iterator it is 
+    // a random_access_iterator which supports (it + n) and makes advance
+    // run in constant time
+    // advance normally reads forward_iterator which only supports ++ operation
+    // only if the iterator is a random_access_iterator the time complexity
+    // can be reduced to constant
     std::advance(it, step * gap);
     if (value < *it)
       count = step;
     else {
-      first = it + 1;
+      first = ++it;
       count -= (step + 1);
     }
   }

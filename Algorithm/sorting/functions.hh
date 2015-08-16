@@ -1,6 +1,8 @@
 #ifndef FUNCTIONS_HH
 #define FUNCTIONS_HH
 
+#include <utility>
+
 template <typename T>
 void
 swap(T &lhs, T &rhs) {
@@ -16,9 +18,9 @@ ForwardIt
 min_element(ForwardIt first, 
 	    ForwardIt last) {
   auto min_it(first);
-  for (auto it(first + 1); it != last; ++it)
-    if (*it < *min_it)
-      min_it = it;
+  while (++first < last)
+    if (*first < *min_it)
+      min_it = first;
   return min_it;
 }
 
@@ -79,5 +81,6 @@ minmax_element(ForwardIt first,
 }
 
 };
+
 
 #endif	// FUNCTIONS_HH
