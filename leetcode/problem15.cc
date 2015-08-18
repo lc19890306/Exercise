@@ -80,3 +80,39 @@ public:
         return ret;
     }
 };
+
+class Solution {
+public:
+    vector<vector<int>> threeSum(vector<int>& nums) {
+        vector<vector<int> > ret;
+        if (nums.size() < 3) return ret;
+        sort(nums.begin(), nums.end());
+        for (std::size_t i(0); i != nums.size() - 1 && nums[i] <= 0;) {
+            std::size_t head(i + 1);
+            for (auto tail(nums.size() - 1); head < tail;) {
+                auto target(-(nums[head] + nums[tail]));
+                if (nums[i] < target)
+                    do {
+                        ++head;
+                    } while (head < tail && nums[head] == nums[head - 1]);
+                else if (target < nums[i])
+                    do {
+                        --tail;
+                    } while (head < tail && nums[tail] == nums[tail + 1]);
+                else {
+                    ret.push_back({nums[i], nums[head], nums[tail]});
+                    do {
+                        ++head;
+                    } while (head < tail && nums[head] == nums[head - 1]);
+                    do {
+                        --tail;
+                    } while (head < tail && nums[tail] == nums[tail + 1]);
+                }
+            }
+            do {
+                ++i;
+            } while (i < head && nums[i] == nums[i - 1]);
+        }
+        return ret;
+    }
+};
