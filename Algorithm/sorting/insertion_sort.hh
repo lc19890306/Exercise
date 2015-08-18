@@ -10,10 +10,21 @@ void
 move(RandomIt src, RandomIt dest) {
   if (src < dest)
     for (auto it(src); it != dest; ++it)
-      swap(*it, *(it + 1));
+      swap(*it, it[1]);
   else
     for (auto it(src); it != dest; --it)
-      swap(*it, *(it - 1));
+      swap(*it, it[-1]);
+}
+
+  template<typename RandomIt, typename SIZE_T>
+void
+move(RandomIt src, RandomIt dest, const SIZE_T &gap) {
+  if (src < dest)
+    for (auto it(src); it != dest; it += gap)
+      swap(*it, it[gap]);
+  else
+    for (auto it(src); it != dest; it -= gap)
+      swap(*it, it[-gap]);
 }
 
 template<typename ForwardIt, typename T>
@@ -43,10 +54,10 @@ lower_bound(ForwardIt first,
   return first;
 }
 
-template<typename ForwardIt, typename T, typename SIZE_T>
-ForwardIt
-lower_bound(ForwardIt first,
-	    ForwardIt last,
+template<typename RandomIt, typename T, typename SIZE_T>
+RandomIt
+lower_bound(RandomIt first,
+	    RandomIt last,
 	    const T &value,
 	    const SIZE_T &gap) {
   long count(std::distance(first, last) / gap);
@@ -64,7 +75,7 @@ lower_bound(ForwardIt first,
     if (value < *it)
       count = step;
     else {
-      first = ++it;
+      first = it + gap;
       count -= (step + 1);
     }
   }
@@ -127,7 +138,7 @@ insertion_sort(RandomIt first, RandomIt last, const SIZE_T &gap) {
   // Since we need to check all the element, we do not use last - 1 as the bound
   while (begin < last) {
     if (*begin < *(begin - gap))
-      Algo::move(begin, Algo::lower_bound(first, begin, *begin, gap));
+      Algo::move(begin, Algo::lower_bound(first, begin, *begin, gap), gap);
     begin += gap;
   }
 }

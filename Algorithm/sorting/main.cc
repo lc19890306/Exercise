@@ -24,8 +24,8 @@ main(int argc, char **argv) {
     // SortFunc sort(insertion_sort);
     // SortFunc sort(cocktail_sort);
     // SortFunc sort(minmax_sort);
-    SortFunc sort(rank_sort);
-    // SortFunc sort(shell_sort);
+    // SortFunc sort(rank_sort);
+    SortFunc sort(shell_sort);
     sort(data.begin(), data.end());
 
     std::cout << Algo::is_sorted(data.begin(), data.end()) << std::endl;
