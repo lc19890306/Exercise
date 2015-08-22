@@ -26,13 +26,11 @@ public:
         k %= size;
         if (k == 0)
             return head;
-        else {
-            cur_node = head;
-            k = size - k;
-            for (int i(1); i < k; ++i)
-                cur_node = cur_node->next;
-            new_tail = cur_node;
-        }
+        cur_node = head;
+        k = size - k;
+        for (int i(1); i < k; ++i)
+            cur_node = cur_node->next;
+        new_tail = cur_node;
         
         new_head = new_tail->next;
         new_tail->next = NULL;
