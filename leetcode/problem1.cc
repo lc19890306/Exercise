@@ -1,101 +1,46 @@
-/**
- * Definition for singly-linked list.
- * struct ListNode {
- *     int val;
- *     ListNode *next;
- *     ListNode(int x) : val(x), next(NULL) {}
- * };
- */
 class Solution {
 public:
-    ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) {
-        ListNode *it = NULL;
-        ListNode *ret = NULL;
-        int carry(0);
-        bool set_head(false);
-        while (l1 != NULL && l2 != NULL) {
-            auto val(l1->val + l2->val + carry);
-            if (it == NULL)
-                it = new ListNode(val % 10);
+    vector<int> twoSum(vector<int>& nums, int target) {
+        if (nums.size() < 2) return {};
+        vector<int> ret, indices;
+        vector<int> temp(nums);
+        sort(nums.begin(), nums.end());
+        size_t left(0), right(nums.size() - 1);
+        while (left < right) {
+            auto sum(nums[left] + nums[right]);
+            if (sum < target) {
+                    ++left;
+            }
+            else if (target < sum) {
+                    --right;
+            }
             else {
-                it->next = new ListNode(val % 10);
-                it = it->next;
-            }
-            if (!set_head) {
-                ret = it;
-                set_head = true;
-            }
-            carry = val / 10;
-            l1 = l1->next;
-            l2 = l2->next;
-        }
-        
-        if (l1 == NULL && l2 == NULL) {
-            if (carry != 0) {
-                if (it == NULL)
-                    it = new ListNode(carry);
-                else {
-                    it->next = new ListNode(carry);
-                    it = it->next;
-                }
-                if (!set_head) {
-                    ret = it;
-                    set_head = true;
-                }
-            }
-            return ret;
-        }
-        else if (l1 == NULL) {
-            while (l2 != NULL && carry != 0) {
-                auto val(l2->val + carry);
-                if (it == NULL)
-                    it = new ListNode(val % 10);
-                else {
-                    it->next = new ListNode(val % 10);
-                    it = it->next;
-                }
-                if (!set_head) {
-                    ret = it;
-                    set_head = true;
-                }
-                carry = val / 10;
-                l2 = l2->next;
-            }
-            if (l2 == NULL) {
-                if (carry != 0)
-                    it->next = new ListNode(carry);
-                return ret;
-            }
-            if (carry == 0) {
-                if (l2 != NULL)
-                    it->next = l2;
-                return ret;
+                indices.push_back(nums[left]);
+                indices.push_back(nums[right]);
+                break;
             }
         }
-        else {
-            while (l1 != NULL && carry != 0) {
-                auto val(l1->val + carry);
-                if (it == NULL)
-                    it = new ListNode(val % 10);
-                else {
-                    it->next = new ListNode(val % 10);
-                    it = it->next;
-                }
-                if (!set_head) {
-                    ret = it;
-                    set_head = true;
-                }
-                carry = val / 10;
-                l1 = l1->next;
+        for (size_t i(0); i != temp.size(); ++i)
+            if (temp[i] == indices[0] || temp[i] == indices[1]) {
+                    ret.push_back(i + 1);
             }
-            if (l1 == NULL) {
-                if (carry != 0)
-                    it->next = new ListNode(carry);
-                return ret;
-            }
-            if (carry == 0) {
-                if (l1 != NULL)
-                    it->next = l1;
+ 
+        return ret;
+    }
+};
+
+class Solution {
+public:
+    vector<int> twoSum(vector<int>& nums, int target) {
+        unordered_map<int, std::size_t> indices;
+        for (std::size_t i(0); i != nums.size(); ++i)
+            indices[nums[i]] = i + 1;
+        vector<int> ret;
+        for (std::size_t i(0); i != nums.size() - 1; ++i) {
+            auto it(indices.find(target - nums[i]));
+            if (it != indices.end() && it->second != i + 1) {
+                ret.push_back(i + 1);
+                ret.push_back(it->second);
                 return ret;
             }
         }
