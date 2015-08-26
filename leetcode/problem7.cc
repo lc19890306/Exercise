@@ -1,3 +1,8 @@
+// Too complicated!
+// max_diff is the remaining part of INT_MAX except for the first digit 2
+// min_diff is the remaining part of INT_MIN except for the first digit 2
+// counter is the number of digits of x
+// init is the first digit of current ret (the last digit of current x)
 class Solution {
 public:
     int reverse(int x) {
@@ -41,5 +46,20 @@ public:
             }
         }
         return ret * sign;
+    }
+};
+
+// Using long long may not be a perfect solution
+class Solution {
+public:
+    int reverse(int x) {
+        long long ret(0);
+        while (x) {
+            ret = ret * 10 + x % 10;
+            x /= 10;
+        }
+        if (ret < INT_MIN || ret > INT_MAX)
+            return 0;
+        return ret;
     }
 };
