@@ -3,15 +3,15 @@ class Solution {
 public:
     bool canFinish(int numCourses, vector<pair<int, int>>& prerequisites) {
         graph.resize(numCourses);
-        checked.resize(numCourses);
+        visited.resize(numCourses);
         cycle_free.resize(numCourses);
         for (auto &&pair : prerequisites)
             graph[pair.second].push_back(pair.first);
         while (true) {
-            auto it(find(checked.begin(), checked.end(), false));
-            if (it == checked.end())
+            auto it(find(visited.begin(), visited.end(), false));
+            if (it == visited.end())
                 return true;
-            auto course(distance(checked.begin(), it));
+            auto course(distance(visited.begin(), it));
             if (cycleExists(course))
                 return false;
         }
@@ -19,9 +19,9 @@ public:
   
 private:
     bool cycleExists(const size_t &course) {
-        if (checked[course])
+        if (visited[course])
             return true;
-        checked[course] = true;
+        visited[course] = true;
         if (graph[course].empty()) {
             cycle_free[course] = true;
             return false;
@@ -34,7 +34,7 @@ private:
     }
     
     vector<vector<int> > graph;
-    vector<bool> checked;
+    vector<bool> visited;
     vector<bool> cycle_free;
 };
 
