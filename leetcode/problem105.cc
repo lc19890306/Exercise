@@ -28,3 +28,47 @@ private:
     }
     unordered_map<int, Iterator> inorder_map;
 };
+
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    TreeNode* buildTree(vector<int>& preorder, vector<int>& inorder) {
+        if (preorder.empty() || inorder.empty())
+            return nullptr;
+        stack<TreeNode *> s;
+        auto pre(preorder.begin());
+        auto in(inorder.begin());
+        TreeNode *root = new TreeNode(*pre);
+	    s.push(root);
+	    ++pre;
+        TreeNode *node_short_of_right = nullptr;
+        while (pre < preorder.end()) {
+            if (!s.empty() && s.top()->val == *in) {
+                node_short_of_right = s.top();
+                s.pop();
+                ++in;
+            }
+            else if (node_short_of_right != nullptr) {
+                TreeNode *node = new TreeNode(*pre);
+                node_short_of_right->right = node;
+                node_short_of_right = nullptr;
+                s.push(node);
+                ++pre;
+            } else {
+                TreeNode *node = new TreeNode(*pre);
+                s.top()->left = node;
+                s.push(node);
+                ++pre;
+            }
+        }
+        return root;
+    }
+};
