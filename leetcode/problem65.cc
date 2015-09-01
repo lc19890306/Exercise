@@ -13,7 +13,7 @@ public:
             ++it;
         for (; it != s.end(); ++it) {
             if (!isdigit(*it)) {
-                switch ((unsigned char)*it) {
+                switch (*it) {
                     case '.': {
                         if (point_it == s.end() &&
                             (isdigit(it[-1]) || isdigit(it[1])) &&
