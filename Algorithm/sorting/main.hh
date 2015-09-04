@@ -9,6 +9,10 @@
 #include "minmax_sort.hh"
 #include "rank_sort.hh"
 #include "shell_sort.hh"
+#include "radix_sort.hh"
+#include "bucket_sort.hh"
+#include "quick_sort.hh"
+#include "heap_sort.hh"
 
 #include <fstream>
 #include <vector>

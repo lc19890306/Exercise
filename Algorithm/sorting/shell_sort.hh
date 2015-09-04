@@ -1,6 +1,8 @@
 #ifndef SHELL_SORT_HH
 #define SHELL_SORT_HH
 
+#include "insertion_sort.hh"
+
 #include <algorithm>
 #include <vector>
 #include <cmath>
@@ -18,6 +20,8 @@ gen_gaps(std::vector<T> &gaps, const std::size_t &num) {
 template<typename RandomIt>
 void
 shell_sort(RandomIt first, RandomIt last) {
+  // if (first == last)
+  //   return;
   auto count(std::distance(first, last));
   std::vector<long> gaps;
   gen_gaps(gaps, count);

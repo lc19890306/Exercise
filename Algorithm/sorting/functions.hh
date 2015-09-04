@@ -3,6 +3,8 @@
 
 #include <utility>
 
+namespace Algo {
+
 template <typename T>
 void
 swap(T &lhs, T &rhs) {
@@ -10,8 +12,6 @@ swap(T &lhs, T &rhs) {
   rhs = std::move(lhs);
   lhs = std::move(temp);
 }
-
-namespace Algo {
 
 template<typename ForwardIt>
 ForwardIt

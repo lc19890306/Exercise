@@ -3,9 +3,27 @@
 #include <iostream>
 #include <vector>
 
-using namespace std;
+#include <algorithm>
+
+#include "heap_sort.hh"
+// using namespace std;
 
 int main() {
-  std::vector<int> vec = {5, 2, 1, 6, 3};
-  std::cout << *Algo::min_element(vec.begin(), vec.end()) << std::endl;
+    std::vector<int> v = {3, 1, 4, 1, 5, 9}; 
+ 
+    Algo::make_heap(v.begin(), v.end());
+ 
+    std::cout << "heap:\t";
+    for (const auto &i : v) {
+        std::cout << i << ' ';
+    }   
+ 
+    Algo::sort_heap(v.begin(), v.end());
+ 
+    std::cout << "\nsorted:\t";
+    for (const auto &i : v) {                                                   
+        std::cout << i << ' ';
+    }   
+    std::cout << '\n';
+    return 0;
 }

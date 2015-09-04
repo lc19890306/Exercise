@@ -16,7 +16,7 @@ move(RandomIt src, RandomIt dest) {
       swap(*it, it[-1]);
 }
 
-  template<typename RandomIt, typename SIZE_T>
+template<typename RandomIt, typename SIZE_T>
 void
 move(RandomIt src, RandomIt dest, const SIZE_T &gap) {
   if (src < dest)
