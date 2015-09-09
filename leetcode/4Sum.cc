@@ -1,3 +1,4 @@
+// Dedicated version
 class Solution {
 public:
     vector<vector<int> > fourSum(vector<int>& nums, int target) {
@@ -44,6 +45,58 @@ public:
             do {
                 ++first;
             } while (first < second && nums[first] == nums[first - 1]);
+        }
+        return ret;
+    }
+};
+
+// General version - recursive
+class Solution {
+public:
+    vector<vector<int> > fourSum(vector<int>& nums, int target) {
+        if (nums.size() < 4) return {};
+        sort(nums.begin(), nums.end());
+        return kSum(nums.begin(), nums.end(), 4, target);
+    }
+    
+private:
+    typedef vector<int>::iterator Iterator;
+    
+    vector<vector<int> > kSum(Iterator first, Iterator last, const int &k, const int &target) {
+        vector<vector<int> > ret;
+        if (k == 2) {
+            auto left(first), right(last - 1);
+            while (left < right) {
+                auto sum(*left + *right);
+                if (sum < target)
+                    do {
+                        ++left;
+                    } while (left < right && *left == left[-1]);
+                else if (target < sum)
+                    do {
+                        --right;
+                    } while (left < right && *right == right[1]);
+                else {
+                    ret.push_back({*left, *right});
+                    do {
+                        ++left;
+                    } while (left < right && *left == left[-1]);
+                    do {
+                        --right;
+                    } while (left < right && *right == right[1]);
+                }
+            }
+        }
+        else {
+            for (auto it(last - 1); it != first + k - 2; --it) {
+                if (it != last - 1 && *it == it[1])
+                    continue;
+                auto temp(kSum(first, it, k - 1, target - *it));
+                for (auto &&vec : temp) {
+                    vec.push_back(*it);
+                    ret.push_back(vec);
+                }
+            }
         }
         return ret;
     }
