@@ -13,6 +13,8 @@
 #include "bucket_sort.hh"
 #include "quick_sort.hh"
 #include "heap_sort.hh"
+#include "counting_sort.hh"
+#include "merge_sort.hh"
 
 #include <fstream>
 #include <vector>

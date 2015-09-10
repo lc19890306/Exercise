@@ -1,3 +1,4 @@
+// O(nlogn)
 class Solution {
 public:
     bool isAnagram(string s, string t) {
@@ -9,6 +10,7 @@ public:
     }
 };
 
+// O(n) on average
 class Solution {
 public:
     bool isAnagram(string s, string t) {
@@ -26,6 +28,7 @@ public:
     }
 };
 
+// Best performance - worst case O(n)
 class Solution {
 public:
     bool isAnagram(string s, string t) {

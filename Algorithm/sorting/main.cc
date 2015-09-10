@@ -29,7 +29,9 @@ main(int argc, char **argv) {
     // SortFunc sort(radix_sort);
     // SortFunc sort(bucket_sort);
     // SortFunc sort(quick_sort);
-    SortFunc sort(heap_sort);
+    // SortFunc sort(heap_sort);
+    // SortFunc sort(counting_sort);
+    SortFunc sort(merge_sort);
     sort(data.begin(), data.end());
 
     std::cout << Algo::is_sorted(data.begin(), data.end()) << std::endl;
