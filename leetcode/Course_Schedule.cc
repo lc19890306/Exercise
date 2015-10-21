@@ -38,7 +38,7 @@ private:
     vector<bool> cycle_free;
 };
 
-// BFS - topology sort + find cycle, if there still remain some nodes after topology sort ends, cycle exisits
+// BFS - topological sort + find cycle, if there still remain some nodes after topology sort ends, cycle exisits
 class Solution {
 public:
 struct Info {

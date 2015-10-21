@@ -23,6 +23,7 @@ public:
     int maxSubArray(vector<int>& nums) {
         auto max(nums[0]), max_end_in_here(nums[0]);
         for (int i(1); i != nums.size(); ++i) {
+	  // max_end_in_here = max(max_end_in_here + nums[i], nums[i]);
             max_end_in_here = max_end_in_here > 0 ? max_end_in_here + nums[i] : nums[i];
 	    // update max in each iteration
             max = std::max(max_end_in_here, max);

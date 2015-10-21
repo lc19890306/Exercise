@@ -27,7 +27,7 @@ int Solution::k = 0;
 
 
 
-
+// O(n) time and space complexity
 class Solution {
 public:
     bool containsNearbyDuplicate(vector<int>& nums, int k) {
@@ -41,6 +41,7 @@ public:
     }
 };
 
+// Sliding window solution - O(n) time and O(k) space complexity
 class Solution {
 public:
     bool containsNearbyDuplicate(vector<int>& nums, int k) {

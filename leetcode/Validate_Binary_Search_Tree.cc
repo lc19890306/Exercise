@@ -45,20 +45,21 @@ private:
 class Solution {
 public:
     bool isValidBST(TreeNode* root) {
-        TreeNode *node = nullptr;
-        return isValidBST(root, node);
+        TreeNode *largest = nullptr;
+        return isValidBST(root, largest);
     }
     
 private:
-    bool isValidBST(TreeNode *root, TreeNode *&node) {
+    bool isValidBST(TreeNode *root, TreeNode *&largest) {
         if (!root)
             return true;
-        if (!isValidBST(root->left, node))
+        if (!isValidBST(root->left, largest))
             return false;
-        if (node && node->val >= root->val)
+	// MUST be >= rather than > because BST does not allow equality
+        if (largest && largest->val >= root->val)
             return false;
 	// if root->left is valid BST, root->val is the largest
-        node = root;
-        return isValidBST(root->right, node);
+        largest = root;
+        return isValidBST(root->right, largest);
     }
 };

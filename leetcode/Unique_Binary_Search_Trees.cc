@@ -1,4 +1,4 @@
-// DFS solution - O(n) time and space complexity
+// Memorization DP solution (DFS) - O(n) time and space complexity
 // foreach root i in [1, n], num[i] = num[i - 1] * num[n - i]
 // num[i - 1] computes the number of trees on the left [1, i - 1]
 // num[n - i] computes the number of trees on the right [i + 1, n] (equals [1, n - i])
@@ -21,7 +21,7 @@ public:
     }
 };
 
-// Regular DP solution
+// Regular DP solution - O(n^2) time and O(n) space complexity
 // G[n]: the number of unique BST for a sequence of length n
 // F[i, n], 1 <= i <= n: the number of unique BST, where the number i is the root of BST, and the sequence ranges from 1 to n
 // G[n] = F[1, n] + F[2, n] + ... + F[n, n]

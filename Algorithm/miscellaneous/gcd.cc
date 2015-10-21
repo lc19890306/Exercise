@@ -1,20 +1,14 @@
 #include <iostream>
 
-int gcd(const int &x, const int &y) {
-  if (0 == x || 0 == y)
+int gcd(int x, int y) {
+  if (x * y == 0)
     return 0;
-  // if (x == y)
-  //   return x;
-  // if (1 == x || 1 == y)
-  //   return 1;
-  auto smaller(std::min(x, y));
-  auto larger(std::max(x, y));
-  while (0 < smaller) {
-    auto temp(smaller);
-    smaller = larger % smaller;
-    larger = temp;
+  while (x > 0) {
+    auto temp(x);
+    x = y % x;
+    y = temp;
   }
-  return larger;
+  return y;
 }
 
 int lcm(const int &x, const int &y) {

@@ -1,3 +1,7 @@
+// E.g., n = 11, namely (1011) in binary form
+// 1   0   1   1
+// x^8 x^4 x^2 x^1
+// x^11 = x^1 * x^2 * x^8
 class Solution {
 public:
     double myPow(double x, int n) {

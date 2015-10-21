@@ -29,6 +29,8 @@ public:
     }
 };
 
+// Test case {0, 3, 4, 0}, target = 0
+// Correct but not neat
 class Solution {
 public:
     vector<int> twoSum(vector<int>& nums, int target) {
@@ -44,5 +46,31 @@ public:
                 return ret;
             }
         }
+    }
+};
+
+// Comparatively complete
+class Solution {
+public:
+    vector<int> twoSum(vector<int>& nums, int target) {
+        vector<int> ret;
+        if (nums.empty())
+            return ret;
+        unordered_map<int, vector<int> > hash_map;
+        for (int i(0); i < nums.size(); ++i)
+            hash_map[nums[i]].push_back(i + 1);
+        for (auto &&num : nums)
+            if (hash_map.find(target - num) != hash_map.end()) {
+                if (target - num == num && hash_map[num].size() < 2)
+                    continue;
+                else {
+                    ret.push_back(hash_map[num].back());
+                    hash_map[num].pop_back();
+                    ret.push_back(hash_map[target - num].back());
+                    hash_map[target - num].pop_back();
+                    sort(ret.begin(), ret.end());
+                    return ret;
+                }
+            }
     }
 };

@@ -1,3 +1,4 @@
+// O(nlogn) time and O(1) space complexity
 class Solution {
 public:
     bool containsDuplicate(vector<int>& nums) {
@@ -6,6 +7,7 @@ public:
     }
 };
 
+// O(n) time and space complexity
 class Solution {
 public:
     bool containsDuplicate(vector<int>& nums) {
@@ -19,6 +21,7 @@ public:
     }
 };
 
+// O(nlogn) time and O(1) space complexity
 class Solution {
 public:
     bool containsDuplicate(vector<int>& nums) {
@@ -30,6 +33,7 @@ public:
     }
 };
 
+// O(nlogn) time and O(1) space complexity
 class Solution {
 public:
     bool containsDuplicate(vector<int>& nums) {
@@ -38,6 +42,7 @@ public:
     }
 };
 
+// O(n) time and space complexity
 class Solution {
 public:
     bool containsDuplicate(vector<int>& nums) {
