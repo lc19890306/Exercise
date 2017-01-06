@@ -25,3 +25,21 @@ public:
         return true;
     }
 };
+
+// Use this solution
+class Solution {
+public:
+    bool wordPattern(string pattern, string str) {
+        int hash_map_p[26] = {0}, i(0);
+        unordered_map<string, int> hash_map_s;
+        istringstream input(str);
+        string word;
+        for (; i < pattern.length() && input >> word; ++i) {
+            if (hash_map_p[pattern[i] - 'a'] != hash_map_s[word])
+                return false;
+            hash_map_p[pattern[i] - 'a'] = hash_map_s[word] = i + 1;
+        }
+	// the length of pattern and the number of words should be the same
+        return !(i < pattern.length() || input >> word);
+    }
+};

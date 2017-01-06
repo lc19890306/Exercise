@@ -1,18 +1,23 @@
-#include <string>
-
-using std::string;
-
-bool cmp(const string &lhs, const string &rhs) {
-    if (lhs.size() == rhs.size())
-        return lhs > rhs;
-    auto shorter(lhs.size() < rhs.size() ? lhs : rhs);
-    auto longer(shorter == lhs ? rhs : lhs);
-    while (shorter.size() < longer.size())
-        shorter += shorter.back();
-    return shorter == lhs ? shorter > longer : longer > shorter;
-}
-
-int main() {
-  auto ret(cmp("9", "34"));
-  return 0;
-}
+class Solution {
+public:
+    string largestNumber(vector<int>& nums) {
+        vector<string> strs;
+        string ret;
+        for (auto &&num : nums)
+            strs.push_back(to_string(num));
+        sort(strs.begin(), strs.end(), greater());
+        for (auto &&str : strs)
+            ret += str;
+	// case: {}, {0, 0, 0}
+        return !ret.empty() && '0' == ret.front() ? "0" : ret;
+    }
+    
+private:
+    struct greater {
+      // AWESOME!!!
+        bool operator()(const string &lhs, const string &rhs) {
+            auto x(lhs + rhs), y(rhs + lhs);
+            return x > y;
+        }
+    };
+};

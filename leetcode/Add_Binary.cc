@@ -30,3 +30,23 @@ private:
         }
     }
 };
+
+// Use this solution
+class Solution {
+public:
+    string addBinary(string a, string b) {
+        int diff(labs(a.length() - b.length()));
+        string ret(diff, '0');
+        ret.append(a.length() < b.length() ? a : b);
+        int carry(0);
+        string &longer(a.length() < b.length() ? b : a);
+        for (int i(ret.length() - 1); i >= 0; --i) {
+            int sum(longer[i] -'0' + ret[i] - '0' + carry);
+            ret[i] = '0' + (sum & 1);
+            carry = sum >> 1;
+        }
+        if (carry == 1)
+            ret = '1' + ret;
+        return ret;
+    }
+};

@@ -49,6 +49,7 @@ private:
     }
 };
 
+// Use this solution
 // Iterative vesion3 - the best version for this problem
 // Forward declaration of isBadVersion API.
 bool isBadVersion(int version);

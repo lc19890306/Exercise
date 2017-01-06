@@ -100,3 +100,22 @@ private:
         return begin == string::npos ? "" : str.substr(begin);
     }
 };
+
+// Use this solution
+class Solution {
+public:
+    int myAtoi(string str) {
+        long ret(0), indicator(1);
+        int i(str.find_first_not_of(' '));
+        if ('-' == str[i] || '+' == str[i])
+            indicator = '-' == str[i++] ? -1 : 1;
+        for (; isdigit(str[i]) && i < str.length(); ++i) {
+            ret = ret * 10 + str[i] - '0';
+            if (ret * indicator >= INT_MAX)
+                return INT_MAX;
+            if (ret * indicator <= INT_MIN)
+                return INT_MIN;
+        }
+        return ret * indicator;
+    }
+};

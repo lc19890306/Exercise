@@ -91,3 +91,25 @@ public:
         return ret;
     }
 };
+
+// Best solution for this problem
+class Solution {
+public:
+    int romanToInt(string s) {
+        int hash_map[26];
+        hash_map['I' - 'A'] = 1;
+        hash_map['V' - 'A'] = 5;
+        hash_map['X' - 'A'] = 10;
+        hash_map['L' - 'A'] = 50;
+        hash_map['C' - 'A'] = 100;
+        hash_map['D' - 'A'] = 500;
+        hash_map['M' - 'A'] = 1000;
+        int sum(hash_map[s.back() - 'A']);
+        for (int i(s.length() - 2); i >= 0; --i)
+            if (hash_map[s[i] - 'A'] < hash_map[s[i + 1] - 'A'])
+                sum -= hash_map[s[i] - 'A'];
+            else
+                sum += hash_map[s[i] - 'A'];
+        return sum;
+    }
+};

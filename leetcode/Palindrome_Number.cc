@@ -22,6 +22,7 @@ class Solution {
 public:
     bool isPalindrome(int x) {
       // Typically, negatives and numbers ending with zero are not palindrome (except 0)
+      // test case: 10, 0, -1, 121, 1331
         if (x < 0 || x != 0 && x % 10 == 0) return false;
         int sum(0);
         while (x > sum) {

@@ -1,4 +1,4 @@
-// Memorization DP solution (DFS) - O(n) time and space complexity
+// Memorization DP solution (DFS) - O(n^2) time and space complexity
 // foreach root i in [1, n], num[i] = num[i - 1] * num[n - i]
 // num[i - 1] computes the number of trees on the left [1, i - 1]
 // num[n - i] computes the number of trees on the right [i + 1, n] (equals [1, n - i])

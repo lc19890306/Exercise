@@ -1,3 +1,27 @@
+// Best solution
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* removeElements(ListNode* head, int val) {
+        ListNode dummy_head(0), *prev(&dummy_head);
+        dummy_head.next = head;
+        while (prev->next) {
+            if (prev->next->val == val)
+                prev->next = prev->next->next;
+            else
+                prev = prev->next;
+        }
+        return dummy_head.next;
+    }
+};
+
 #include <cstdlib>
 
   // Definition for singly-linked list.

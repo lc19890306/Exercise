@@ -34,6 +34,7 @@ public:
     }
 };
 
+// Best solution
 class Solution {
 public:
     bool isPalindrome(string s) {

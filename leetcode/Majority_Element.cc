@@ -91,21 +91,23 @@ public:
 };
 
 // Boyer-Moore Voting Algorithm
+// BEST solution for this kind of problems
 class Solution {
 public:
     int majorityElement(vector<int>& nums) {
-        int counter(0);
-        int candidate;
-        for (auto it(nums.begin()); it != nums.end(); ++it) {
-            if (counter == 0) {
-                candidate = *it;
-                counter = 1;
+        int candidate(0), count(0);
+        for (auto &&num : nums) {
+            if (candidate == num)
+                ++count;
+            else if (0 == count) {
+                candidate = num;
+                count = 1;
             }
-            else if (candidate == *it)
-                ++counter;
             else
-                --counter;
+                --count;
         }
+	// in theory, here should add a double check if count(nums.begin(), nums.end(), candidate) >= nums.size() / 2;
+	// in thie problem, we assume there must exist such a number, so we omit it
         return candidate;
     }
 };

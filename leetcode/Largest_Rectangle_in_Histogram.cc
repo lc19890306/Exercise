@@ -9,8 +9,8 @@ public:
             while (!s.empty() && height[i] < height[s.top()]) {
                 auto top(s.top());
 		// each time pop an element, calculate the area
-		// if stack is empty, area = height of element just poped * i
-		// otherwise, area = height of element just poped * (current top of stack + 1)
+		// if stack is empty, area = height of element just popped * i
+		// otherwise, area = height of element just popped * (current top of stack + 1)
                 s.pop();
                 auto area(height[top] * (i - (s.empty() ? 0 : s.top() + 1)));
                 max_area = max(max_area, area);

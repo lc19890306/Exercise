@@ -52,6 +52,14 @@ public:
     ListNode *getIntersectionNode(ListNode *headA, ListNode *headB) {
         auto node1(headA), node2(headB);
         while (node1 != node2) {
+	  // WRONG!! node1 = node1->next ? : headB
+	  // because nullptr should be treated as an intersection so nullptr should be considered as a node as well as regular node
+	  // a1 a2 NL b1 b2 b3 NL
+	  // b1 b2 b3 NL a1 a2 NL
+	  // OTHERWISE
+	  // a1 a2 b1 b2 b3 ...
+	  // b1 b2 b3 a1 a2 ...
+	  // TLE!!!!
             node1 = node1 ? node1->next : headB;
             node2 = node2 ? node2->next : headA;
         }

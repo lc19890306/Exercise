@@ -4,7 +4,8 @@ public:
         for (auto it(nums.rbegin()); it != nums.rend(); ++it) {
             if (*it == val) {
                 swap(*it, *nums.rbegin());
-                nums.erase(nums.end() - 1);
+		nums.pop_back();
+                // nums.erase(nums.end() - 1);
             }
         }
         return nums.size();

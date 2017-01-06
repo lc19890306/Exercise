@@ -16,3 +16,22 @@ public:
         return stk.empty();
     }
 };
+
+// same solution as the above one
+class Solution {
+public:
+    bool isValid(string s) {
+        unordered_map<char, char> hash_map{{')', '('}, {'}', '{'}, {']', '['}};
+        stack<char> stk;
+        for (auto &&c : s) {
+            auto it(hash_map.find(c));
+            if (it == hash_map.end())
+                stk.push(c);
+            else if (!stk.empty() && stk.top() == it->second)
+                stk.pop();
+            else
+                return false;
+        }
+        return stk.empty();
+    }
+};

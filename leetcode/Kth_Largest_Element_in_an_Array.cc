@@ -26,7 +26,7 @@ public:
     }
 };
 
-// sort solution - O(nlong) time complexity
+// sort solution - O(nlogn) time complexity
 class Solution {
 public:
     int findKthLargest(vector<int>& nums, int k) {
@@ -35,7 +35,7 @@ public:
     }
 };
 
-// Introsort solution - O(k) time complexity - fastest
+// Introsort solution - O(n) time complexity on average - fastest
 class Solution {
 public:
     int findKthLargest(vector<int>& nums, int k) {

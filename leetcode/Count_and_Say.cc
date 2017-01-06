@@ -25,7 +25,7 @@ public:
     }
 };
 
-// Regular solution - O(n) time complexity and O(1) space complexity
+// Regular solution - O(n) time complexity and O(n) space complexity
 class Solution {
 public:
     string countAndSay(int n) {
@@ -47,6 +47,39 @@ private:
                 ++counter;
             ret += ('0' + counter);
             ret += s[i - 1];
+        }
+        return ret;
+    }
+};
+
+// almost the same as the above solution
+class Solution {
+public:
+    string countAndSay(int n) {
+        string ret("1");
+        for (int i(1); i < n; ++i)
+            ret = countAndSay(ret);
+        return ret;
+    }
+    
+private:
+    string countAndSay(string s) {
+      // test case: "11"
+      // make sure the trailing chars can be counted and said
+        s.append("0");
+        string ret;
+        int count(0);
+	// use s[0] as the first candidate
+        char candidate(s[0]);
+        for (auto &&c : s) {
+            if (c == candidate)
+                ++count;
+            else {
+	      // += would be more compatible with char
+                ret.append(to_string(count)).append(1, candidate);
+                candidate = c;
+                count = 1;
+            }
         }
         return ret;
     }

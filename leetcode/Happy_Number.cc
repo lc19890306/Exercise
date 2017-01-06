@@ -23,6 +23,7 @@ public:
 class Solution {
 public:
     bool isHappy(int n) {
+      // for n = abc, calculate a^2 + b^2 + c^2, until n becomes a digit
         while (n > 9) {
             int new_n(0);
             while (n > 0) {

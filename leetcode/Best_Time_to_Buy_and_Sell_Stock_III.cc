@@ -26,3 +26,20 @@ public:
         return max_profit;
     }
 };
+
+// DP solution - O(n) time and O(1) space complexity
+class Solution {
+public:
+    int maxProfit(vector<int>& prices) {
+        int n(prices.size());
+        vector<int> global(3), local(3);
+        for (int i(1); i < n; ++i) {
+            auto diff(prices[i] - prices[i - 1]);
+            for (int j(3); j > 0; --j) {
+                local[j] = max(global[j - 1] + max(diff, 0), local[j] + diff);
+                global[j] = max(global[j], local[j]);
+            }
+        }
+        return global.back();
+    }
+};

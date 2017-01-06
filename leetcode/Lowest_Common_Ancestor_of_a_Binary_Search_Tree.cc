@@ -17,6 +17,7 @@ public:
         else {
             auto smaller(min(p->val, q->val));
             auto larger(max(p->val, q->val));
+	    // should be <= rather than < because either smaller or larger can equal to root->val
             if (smaller <= root->val && root->val <= larger)
                 return root;
             else if (root->val < smaller)

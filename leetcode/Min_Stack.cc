@@ -1,3 +1,4 @@
+// O(n) time and space complexity
 class MinStack {
 public:
     void push(int x) {

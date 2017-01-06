@@ -34,7 +34,7 @@ public:
             for (int col(0); col < 9; ++col) {
                 if (board[row][col] == '.')
                     continue;
-                auto num(board[row][col] - '1');
+                auto num(board[row][col] - '0');
                 if (!h[row][num] && !v[col][num] && !s[row / 3 * 3 + col / 3][num])
                     h[row][num] = v[col][num] = s[row / 3 * 3 + col / 3][num] = true;
                 else

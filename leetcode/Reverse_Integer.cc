@@ -58,8 +58,6 @@ public:
             ret = ret * 10 + x % 10;
             x /= 10;
         }
-        if (ret < INT_MIN || ret > INT_MAX)
-            return 0;
-        return ret;
+        return ret < INT_MIN || ret > INT_MAX ? 0 : ret;
     }
 };

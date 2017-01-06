@@ -51,3 +51,30 @@ public:
         return head;
     }
 };
+
+// similar to the above solution
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* removeNthFromEnd(ListNode* head, int n) {
+        ListNode dummy_head(0), *slow(&dummy_head), *fast(&dummy_head);
+        dummy_head.next = head;
+        ++n;
+        while (fast && n-- > 0)
+            fast = fast->next;
+        while (fast) {
+            slow = slow->next;
+            fast = fast->next;
+        }
+	// slow is the prev of the final node to be removed for convenience
+        slow->next = slow->next->next;
+        return dummy_head.next;
+    }
+};

@@ -30,10 +30,7 @@ public:
     int strStr(string haystack, string needle) {
         if (needle.empty())
             return 0;
-        if (haystack.length() < needle.length())
-            return -1;
-        int i(-1);
-        int diff(haystack.length() - needle.length());
+        int i(-1), diff(haystack.length() - needle.length());
         while (i < diff) {
             while (++i < diff && needle[0] != haystack[i]);
             if (haystack.substr(i, needle.length()) == needle)
