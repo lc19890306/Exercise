@@ -1,4 +1,26 @@
-// Version2 - best
+// Version3 - best
+class Solution {
+public:
+    /**
+     * @return: The same instance of this class every time
+     */
+    static Solution* getInstance() {
+        // write your code here
+      // C++11 thread-safe local-static-initialization
+        static Solution instance;
+        return &instance;
+    }
+    
+  // C++11 noncopyable
+    Solution(const Solution &) = delete;
+    Solution & operator=(const Solution &) = delete;
+    
+private:
+    Solution() {}
+    ~Solution() {}
+};
+
+// Version2
 class Solution {
 public:
     /**
