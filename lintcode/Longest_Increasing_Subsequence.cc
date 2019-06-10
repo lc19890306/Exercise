@@ -33,7 +33,9 @@ public:
         // write your code here
         vector<int> LIS;
         for (int i(0); i < nums.size(); ++i) {
-            auto it(upper_bound(LIS.begin(), LIS.end(), nums[i]));
+	  // use lower_bound not upper_bound
+	  // case: 2, 2
+            auto it(lower_bound(LIS.begin(), LIS.end(), nums[i]));
             if (it != LIS.end())
                 *it = nums[i];
             else
