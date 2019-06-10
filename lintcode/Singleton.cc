@@ -1,9 +1,14 @@
+<<<<<<< HEAD
 // Version 4
+=======
+// Version3 - best
+>>>>>>> cfe3afa1b929804c8800262a07f35ba08aa3136c
 class Solution {
 public:
     /**
      * @return: The same instance of this class every time
      */
+<<<<<<< HEAD
     static shared_ptr<Solution> getInstance() {
         // write your code here
         static shared_ptr<Solution> instance(new Solution());
@@ -34,6 +39,25 @@ public:
 };
 
 // Version2 - best
+=======
+    static Solution* getInstance() {
+        // write your code here
+      // C++11 thread-safe local-static-initialization
+        static Solution instance;
+        return &instance;
+    }
+    
+  // C++11 noncopyable
+    Solution(const Solution &) = delete;
+    Solution & operator=(const Solution &) = delete;
+    
+private:
+    Solution() {}
+    ~Solution() {}
+};
+
+// Version2
+>>>>>>> cfe3afa1b929804c8800262a07f35ba08aa3136c
 class Solution {
 public:
     /**
