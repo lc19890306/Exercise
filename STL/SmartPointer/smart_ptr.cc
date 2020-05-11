@@ -229,6 +229,12 @@ smart_ptr<T> dynamic_pointer_cast(
 }
  */
 
+#include <iostream>
+#include <vector>
+#include <memory>
+
+using namespace std;
+
 template <typename T>
 class smart_ptr {
 public:
@@ -243,7 +249,8 @@ public:
     smart_ptr(const smart_ptr &other) {
         p = other.p;
         if (p) {
-            count = ++*(other.count);
+            ++*(other.count);
+            count = other.count;
         }
     }
     smart_ptr(smart_ptr &&other) {
@@ -253,15 +260,33 @@ public:
             other.p = nullptr; // 一定要置空！！避免count在other中被destroy
         }
     }
-    smart_ptr &operator=(smart_ptr rhs) {
-        rhs.swap(*this);
+    smart_ptr &operator=(const smart_ptr &rhs) {
+        if (this != &rhs) {
+            dec_count();
+            p = rhs.p;
+            if (p) {
+                ++*(rhs.count);
+                count = rhs.count;
+            }
+        }
         return *this;
     }
-    void swap(smart_ptr &rhs) {
-        using std::swap;
-        swap(p, rhs.p);
-        swap(count, rhs.count);
+    smart_ptr &operator=(smart_ptr &&rhs) {
+        dec_count();
+        p = rhs.p;
+        count = rhs.count;
+        rhs.p = nullptr;
+        return *this;
     }
+//    smart_ptr &operator=(smart_ptr rhs) {
+//        rhs.swap(*this);
+//        return *this;
+//    }
+//    void swap(smart_ptr &rhs) {
+//        using std::swap;
+//        swap(p, rhs.p);
+//        swap(count, rhs.count);
+//    }
     T *get() const {
         return p;
     }
@@ -290,9 +315,23 @@ private:
 };
 
 int main() {
-    smart_ptr<int> p(new int(2));
-    cout << *p << endl;
-    *p = 5;
-    cout << *p << endl;
+    using T = smart_ptr<int>;
+//    using T = shared_ptr<int>;
+    T p1(new int(2));
+    cout << "p1.use_count(): " << p1.use_count() << endl;
+    cout << *p1 << endl;
+    *p1 = 5;
+    cout << *p1 << endl;
+    {
+        T p2(p1), p3(new int(5));
+        cout << "p1.use_count(): " << p1.use_count() << endl;
+        cout << "p2.use_count(): " << p2.use_count() << endl;
+        cout << "p3.use_count(): " << p3.use_count() << endl;
+        p2 = std::move(p3);
+        cout << "p1.use_count(): " << p1.use_count() << endl;
+        cout << "p2.use_count(): " << p2.use_count() << endl;
+        cout << "p3.use_count(): " << p3.use_count() << endl;
+    }
+    cout << "p1.use_count(): " << p1.use_count() << endl;
     return 0;
 }
