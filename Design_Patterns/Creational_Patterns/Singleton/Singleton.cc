@@ -100,7 +100,9 @@ public:
   }
 
   Singleton(const Singleton &other) = delete;
-  Singleton & operator=(const Singleton &other) = delete;
+  Singleton & operator=(const Singleton &rhs) = delete;
+  // Singleton(Singleton &&other) = delete; // If you declare a copy constructor (even if you define it as deleted in the declaration), no move constructor will be declared implicitly.
+  // Singleton &operator=(Singleton &rhs) = delete;
 
 private:
   Singleton(int x) : i(x) {}
