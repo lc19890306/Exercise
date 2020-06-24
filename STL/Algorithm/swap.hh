@@ -11,7 +11,7 @@ template <class T>
 void swap(T &a, T &b) {
   auto temp(std::move(a));
   a = std::move(b);
-  b = std::move(std::move(temp));
+  b = std::move(temp);
 }
 
 };				// namespace Algo
