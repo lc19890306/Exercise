@@ -50,5 +50,8 @@ int main() {
     vv.pop_back(); // pop_back calls A's destructor
     cout << "done" << endl;
     vv.capacity(); // nodiscard issues a warning during compilation
+    V<pair<int, int>> vp;
+    vp.emplace_back(1, 3);
+    cout << vp[0].first << ", " << vp[0].second << endl; // 1, 3
     return 0;
 }
