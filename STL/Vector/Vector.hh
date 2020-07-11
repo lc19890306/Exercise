@@ -75,6 +75,22 @@ public:
         ++_size;
     }
 
+    template<typename... Args>
+    void emplace_back(Args&&... args) {
+        if (0 == _capacity) {
+            _capacity = 1;
+            _p = new value_type[_capacity];
+        } else if (_size == _capacity) {
+            _capacity *= 2;
+            auto p = new value_type[_capacity];
+            std::copy_n(_p, _size, p);
+            delete []_p;
+            _p = p;
+        }
+        *(_p + _size) = value_type(std::forward<Args>(args)...);
+        ++_size;
+    }
+
     [[nodiscard]] bool empty() const {
         return _size == 0;
     }
