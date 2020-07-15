@@ -38,7 +38,7 @@ private:
             std::lock_guard<std::shared_mutex> lk(mutex);
             const auto it = find_entry_for(key);
             if (it == std::end(data)) {
-                data.push_back(bucket_value(key, value));
+                data.emplace_back(key, value);
             } else {
                 it->second = value;
             }
@@ -61,7 +61,7 @@ private:
         }
 
         bucket_data data;
-        std::shared_mutex mutex;
+        std::shared_mutex mutex; // rw_lock
     };
 
 //    std::vector<std::unique_ptr<bucket_type>> buckets;
