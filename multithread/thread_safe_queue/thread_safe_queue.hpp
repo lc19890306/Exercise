@@ -13,9 +13,13 @@ public:
         lock_guard<mutex> lk(other.mtx);
         q = other.q;
     }
-    thread_safe_queue &operator=(const thread_safe_queue &rhs) {
+    thread_safe_queue(thread_safe_queue &&other) {
+        lock_guard<mutex> lk(rhs.mtx);
+        q = move(other.q);
+    }
+    thread_safe_queue &operator=(thread_safe_queue rhs) {
         scoped_lock<mutex> lk(mtx, rhs.mtx);
-        q = rhs.q;
+        swap(q, rhs.q);
     }
     void push(const T &x) {
         lock_guard<mutex> lk(mtx); // 比unique_lock简单且性能好
