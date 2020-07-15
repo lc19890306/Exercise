@@ -14,7 +14,7 @@ public:
         q = other.q;
     }
     thread_safe_queue(thread_safe_queue &&other) {
-        lock_guard<mutex> lk(rhs.mtx);
+        lock_guard<mutex> lk(other.mtx);
         q = move(other.q);
     }
     thread_safe_queue &operator=(thread_safe_queue rhs) {
