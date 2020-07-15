@@ -8,6 +8,12 @@ using namespace std;
 template <typename T>
 class thread_safe_queue {
 public:
+    thread_safe_queue() = default;
+    thread_safe_queue(const thread_safe_queue &other) {
+        lock_guard<mutex> lk(other.mtx);
+        q = other.q;
+    }
+    thread_safe_queue &operator=(const thread_safe_queue &rhs) = delete;
     void push(const T &x) {
         lock_guard<mutex> lk(mtx); // 比unique_lock简单且性能好
         q.push(x);
