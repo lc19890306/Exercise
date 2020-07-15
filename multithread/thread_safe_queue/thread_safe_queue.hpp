@@ -20,9 +20,13 @@ public:
         q.pop();
         return res;
     }
+    bool empty() const {
+        lock_guard<mutex> lk(mtx);
+        return q.empty();
+    }
 
 private:
-    mutex mtx;
+    mutable mutex mtx;
     queue<T> q;
     condition_variable cond;
 };
