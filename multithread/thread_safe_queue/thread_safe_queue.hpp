@@ -21,9 +21,9 @@ public:
         scoped_lock<mutex> lk(mtx, rhs.mtx);
         swap(q, rhs.q);
     }
-    void push(const T &x) {
+    void push(T x) { // rvalue调用move ctor不用copy
         lock_guard<mutex> lk(mtx); // 比unique_lock简单且性能好
-        q.push(x);
+        q.push(move(x)); // rvalue不用copy
         cond.notify_one(); // 一定要通知挂起等待的线程
     }
     T pop() {
