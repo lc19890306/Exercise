@@ -40,7 +40,7 @@ public:
 
 private:
     std::string _name;
-    std::weak_ptr<Publisher> _publisher;
+    std::weak_ptr<Publisher> _publisher; // 这里要用weak_ptr否则会造成循环引用（circular references）无法释放
 };
 
 void Publisher::add(const std::weak_ptr<Subscriber> &subscriber) {
