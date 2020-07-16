@@ -15,7 +15,7 @@ public:
     virtual ~Publisher() = default;
 
 private:
-    std::unordered_map<std::string, std::unordered_set<std::shared_ptr<Subscriber>>> _subscribers;
+    std::unordered_map<std::string, std::unordered_set<std::shared_ptr<Subscriber>>> _subscribers; // std::hash不支持weak_ptr
 };
 
 class Subscriber : public enable_shared_from_this<Subscriber> {
@@ -27,7 +27,7 @@ public:
     }
 
     void subscribe(const std::string &event) {
-        if (auto sp = _publisher.lock()) {
+        if (auto sp = _publisher.lock()) { // weak_ptr使用之前必须转成shared_ptr
             sp->subscribeEventForSubscriber(shared_from_this(), event);
         }
     }
