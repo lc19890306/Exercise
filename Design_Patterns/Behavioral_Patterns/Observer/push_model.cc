@@ -9,8 +9,8 @@ class Subscriber;
 
 class Publisher : public enable_shared_from_this<Publisher> {
 public:
-    void add(const std::shared_ptr<Subscriber> &subscriber);
-    void subscribeEventForSubscriber(const std::shared_ptr<Subscriber> &subscriber, const std::string &event);
+    void add(const std::weak_ptr<Subscriber> &subscriber);
+    void subscribeEventForSubscriber(const std::weak_ptr<Subscriber> &subscriber, const std::string &event);
     void publish(const std::string &event);
     virtual ~Publisher() = default;
 
@@ -22,12 +22,14 @@ class Subscriber : public enable_shared_from_this<Subscriber> {
 public:
     explicit Subscriber(std::string name) : _name(std::move(name)) {}
 
-    void addPublisher(const std::shared_ptr<Publisher> &publisher) {
+    void addPublisher(const std::weak_ptr<Publisher> &publisher) {
         _publisher = publisher;
     }
 
     void subscribe(const std::string &event) {
-        _publisher->subscribeEventForSubscriber(shared_from_this(), event);
+        if (auto sp = _publisher.lock()) {
+            sp->subscribeEventForSubscriber(shared_from_this(), event);
+        }
     }
 
     void get(const std::string &event) {
@@ -38,15 +40,19 @@ public:
 
 private:
     std::string _name;
-    std::shared_ptr<Publisher> _publisher;
+    std::weak_ptr<Publisher> _publisher;
 };
 
-void Publisher::add(const std::shared_ptr<Subscriber> &subscriber) {
-    subscriber->addPublisher(shared_from_this());
+void Publisher::add(const std::weak_ptr<Subscriber> &subscriber) {
+    if (auto sp = subscriber.lock()) {
+        sp->addPublisher(shared_from_this());
+    }
 }
 
-void Publisher::subscribeEventForSubscriber(const shared_ptr<Subscriber> &subscriber, const string &event) {
-    _subscribers[event].insert(subscriber);
+void Publisher::subscribeEventForSubscriber(const weak_ptr<Subscriber> &subscriber, const string &event) {
+    if (auto sp = subscriber.lock()) {
+        _subscribers[event].insert(sp);
+    }
 }
 
 void Publisher::publish(const string &event) {
