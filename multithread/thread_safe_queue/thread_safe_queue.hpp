@@ -34,6 +34,13 @@ public:
         q.pop();
         return res;
     }
+    bool try_pop(T &value) {
+        lock_guard<mutex> lk(mtx);
+        if (q.empty()) return false;
+        value = q.front();
+        q.pop();
+        return true;
+    }
     bool empty() const {
         lock_guard<mutex> lk(mtx);
         return q.empty();
