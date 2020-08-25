@@ -16,9 +16,19 @@ void print(const V<T> &v, const std::string &s) {
 }
 
 struct A {
-    A() { cout << "A()" << endl; }
-
-    ~A() { cout << "~A()" << endl; }
+    A(){
+        cout<<"A::A\n";
+    }
+    A(const A &other){
+        cout<<"A::copy\n";
+    }
+    A(A &&other){
+        cout<<"A::move\n";
+    }
+    ~A(){
+        cout<<"A::~A\n";
+    }
+    int x = 1;
 };
 
 int main() {
