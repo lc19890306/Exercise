@@ -101,7 +101,8 @@ public:
     void pop_back() {
         if (!empty()) {
             --_size;
-            auto t = std::move(*(_p + _size));
+            (_p + _size)->~value_type();
+//             auto t = std::move(*(_p + _size));
         }
     }
 
@@ -110,7 +111,8 @@ private:
     void free_mem() {
         if (_p) {
             for (size_type i = 0; i < _size; ++i) {
-                auto t = move(*(_p + i));
+                (_p + i)->~value_type();
+//                 auto t = move(*(_p + i));
             }
             free(_p);
             _p = nullptr;
