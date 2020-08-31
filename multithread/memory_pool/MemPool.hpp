@@ -72,6 +72,7 @@ auto MemPool<T, NumOfObjects>::alloc() {
 template<typename T, int NumOfObjects>
 void MemPool<T, NumOfObjects>::free(T *p) {
     lock_guard<mutex> lk(mtx);
+    p->~T();
     auto pNode = reinterpret_cast<FreeNode *>(p);
     pNode->pNext = freeNodeHeader;    //将释放的节点插入空闲节点头部
     freeNodeHeader = pNode;
