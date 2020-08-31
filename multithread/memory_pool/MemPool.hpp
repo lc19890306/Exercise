@@ -15,7 +15,8 @@ public:
         }
     }
 
-    auto alloc();
+    template<typename ...Args>
+    auto alloc(Args &&...args);
 
 private:
     void free(T *);
@@ -39,7 +40,8 @@ private:
 
 //分配空闲的节点
 template<typename T, int NumOfObjects>
-auto MemPool<T, NumOfObjects>::alloc() {
+template<typename ...Args>
+auto MemPool<T, NumOfObjects>::alloc(Args &&...args) {
     lock_guard<mutex> lk(mtx);
     //无空闲节点，申请新内存块
     if (!freeNodeHeader) {
@@ -65,7 +67,7 @@ auto MemPool<T, NumOfObjects>::alloc() {
     //返回空节点闲链表的第一个节点
     auto freeNode = freeNodeHeader;
     freeNodeHeader = freeNodeHeader->pNext;
-    return unique_ptr<T, std::function<void(T *)>>(new(freeNode)T(), [this](T *p) { free(p); });
+    return unique_ptr<T, std::function<void(T *)>>(new(freeNode)T(forward<Args>(args)...), [this](T *p) { free(p); });
 }
 
 //释放已经分配的节点
