@@ -17,9 +17,9 @@ public:
 
     auto alloc();
 
+private:
     void free(T *);
 
-private:
     //空闲节点结构体
     struct FreeNode {
         char data[sizeof(T)];
@@ -65,7 +65,7 @@ auto MemPool<T, NumOfObjects>::alloc() {
     //返回空节点闲链表的第一个节点
     auto freeNode = freeNodeHeader;
     freeNodeHeader = freeNodeHeader->pNext;
-    return unique_ptr<T, std::function<void(T *)>>(new(freeNode)T(), [this](T *p){free(p);});
+    return unique_ptr<T, std::function<void(T *)>>(new(freeNode)T(), [this](T *p) { free(p); });
 }
 
 //释放已经分配的节点
