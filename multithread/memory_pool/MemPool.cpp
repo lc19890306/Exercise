@@ -50,7 +50,6 @@ T *MemPool<T, NumOfObjects>::alloc() {
         for (int i = 1; i < NumOfObjects; ++i) {
             newBlock->data[i - 1].pNext = &newBlock->data[i];
         }
-        newBlock->data[NumOfObjects - 1].pNext = nullptr;
 
         //首次申请内存块
         if (!memBlockHeader) {
