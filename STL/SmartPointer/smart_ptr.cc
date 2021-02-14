@@ -238,7 +238,7 @@ using namespace std;
 template <typename T>
 class smart_ptr {
 public:
-    smart_ptr(T *ptr = nullptr) : p(ptr) {
+    explicit smart_ptr(T *ptr = nullptr) : p(ptr) {
         if (ptr) {
             count = new size_t(1);
         }
