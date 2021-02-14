@@ -46,14 +46,12 @@ auto MemPool<T, NumOfObjects>::alloc(Args &&...args) {
     //无空闲节点，申请新内存块
     if (!freeNodeHeader) {
         auto newBlock = new MemBlock;
-        newBlock->pNext = nullptr;
 
         freeNodeHeader = &newBlock->data[0];     //设置内存块的第一个节点为空闲节点链表的首节点
         //将内存块的其它节点串起来
         for (int i = 1; i < NumOfObjects; ++i) {
             newBlock->data[i - 1].pNext = &newBlock->data[i];
         }
-        newBlock->data[NumOfObjects - 1].pNext = nullptr;
 
         //首次申请内存块
         if (!memBlockHeader) {
