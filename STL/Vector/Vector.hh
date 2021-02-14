@@ -132,5 +132,5 @@ private:
 
     size_type _capacity{};
     size_type _size{};
-    value_type *_p;
+    value_type *_p{};
 };
