@@ -14,7 +14,7 @@ public:
             : _capacity(size), _size(size) {
         _capacity = resolve(_capacity);
         _p = static_cast<value_type *>(malloc(sizeof(value_type) * _capacity));
-        for (int i = 0; i < _size; ++i) {
+        for (size_type i = 0; i < _size; ++i) {
             new(_p + i)value_type(data);
         }
     }
