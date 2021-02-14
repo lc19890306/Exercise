@@ -307,7 +307,9 @@ private:
     void dec_count() {
         if (p && --*count == 0) {
             delete p;
+            p = nullptr;
             delete count;
+            count = nullptr;
         }
     }
     T *p;
