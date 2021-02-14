@@ -32,7 +32,7 @@ public:
             }
         } catch (...) {
             _done = true;
-            throw;
+            throw; // rethrows the exception object
         }
     }
 
